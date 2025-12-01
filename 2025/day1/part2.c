@@ -3,7 +3,7 @@
 
 int main() {
     
-    FILE *file = fopen("input.txt", "r");
+    FILE *file = fopen("example.txt", "r");
     
     int position = 50;
     int count = 0;
@@ -25,12 +25,12 @@ int main() {
         }
         position %= 100;
         if (position < 0) {
-            if (position + value != 0)
+            if (position + value != 0 && value < 100)
                 count++;
             position += 100;
         } else if (position < prev_pos && rotate_right && position != 0) {
             count++;
-        } else if (value < 100 && position == 0) {
+        } else if (prev_pos != 0 && position == 0) {
             count++;
         }
         printf("The dial is rotated %s to point at %d.\n", line, position);
