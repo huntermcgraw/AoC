@@ -6,10 +6,10 @@ unsigned long long check_ids(char *range);
 
 int main() {
     
-    FILE *file = fopen("input.txt", "r");
+    FILE *file = fopen("example.txt", "r");
     
     unsigned long long count = 0;
-    char line[6];
+    char line[1024];
     char *range;
     char *saveptr;
 
