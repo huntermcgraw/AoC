@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-unsigned long long check_ids(char *range); // 1845935168 is too low
+unsigned long long check_ids(char *range);
 
 int main() {
     
     FILE *file = fopen("input.txt", "r");
     
     unsigned long long count = 0;
-    char line[1024];
+    char line[6];
     char *range;
     char *saveptr;
 
