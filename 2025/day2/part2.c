@@ -65,7 +65,7 @@ unsigned long long check_ids(char *range, regex_t regex) {
 
         if (!return_value) {
             count += id;
-            printf("Matching ID: %s\n", id_str);
+            //printf("Matching ID: %s\n", id_str);
         }
 
     }
