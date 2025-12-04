@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 unsigned long long calc_line(char *line, int line_length);
 
@@ -57,16 +58,18 @@ unsigned long long calc_line(char *line, int line_length) {
             }
         } else if (k > 1) {
             for (int i = 0; i < highest_digit_count[(12 - k) - 1]; i++) {
+                //highest_digit_count[12 - k] = 0;
                 for (int j = highest_digits[(12 - k) - 1][i] + 1; j < line_length - k; j++) {
+                    //printf("Line[j]: %c\n", line[j]);
                     if (line[j] - '0' > highest[12 - k]) {
-                    highest[12 - k] = line[j] - '0';
-                    highest_digit_count[12 - k] = 0;
-                    highest_digits[12 - k][highest_digit_count[12 - k]] = j;
-                    highest_digit_count[12 - k]++;
-                } else if (line[j] - '0' == highest[12 - k]) {
-                    highest_digits[12 - k][highest_digit_count[12 - k]] = j;
-                    highest_digit_count[12 - k]++;
-                }
+                        highest[12 - k] = line[j] - '0';
+                        highest_digit_count[12 - k] = 0;
+                        highest_digits[12 - k][highest_digit_count[12 - k]] = j;
+                        highest_digit_count[12 - k]++;
+                    } else if (line[j] - '0' == highest[12 - k]) {
+                        highest_digits[12 - k][highest_digit_count[12 - k]] = j;
+                        highest_digit_count[12 - k]++;
+                    }
                 }
             }
         } else {
@@ -91,5 +94,5 @@ unsigned long long calc_line(char *line, int line_length) {
     }
     printf("\n");
 
-    return (highest[0] * 10 + highest[1]); // for all 12
+    return (highest[0] * pow(10, 11) + highest[1] * pow(10, 10) + highest[2] * pow(10, 9) + highest[3] * pow(10, 8) + highest[4] * pow(10, 7) + highest[5] * pow(10, 6) + highest[6] * pow(10, 5) + highest[7] * pow(10, 4) + highest[8] * pow(10, 3) + highest[9] * pow(10, 2) + highest[10] * pow(10, 1) + highest[11]);
 }
