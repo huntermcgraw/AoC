@@ -57,9 +57,8 @@ unsigned long long calc_line(char *line, int line_length) {
                 }
             }
         } else if (k > 1) {
-            for (int i = 0; i < highest_digit_count[(12 - k) - 1]; i++) {
                 //highest_digit_count[12 - k] = 0;
-                for (int j = highest_digits[(12 - k) - 1][i] + 1; j < line_length - k; j++) {
+                for (int j = highest_digits[(12 - k) - 1][0] + 1; j < line_length - k; j++) {
                     //printf("Line[j]: %c\n", line[j]);
                     if (line[j] - '0' > highest[12 - k]) {
                         highest[12 - k] = line[j] - '0';
@@ -71,10 +70,8 @@ unsigned long long calc_line(char *line, int line_length) {
                         highest_digit_count[12 - k]++;
                     }
                 }
-            }
         } else {
-            for (int i = 0; i < highest_digit_count[(12 - k) - 1]; i++) {
-                for (int j = highest_digits[(12 - k) - 1][i] + 1; j < line_length - 1; j++) {
+                for (int j = highest_digits[(12 - k) - 1][0] + 1; j < line_length - 1; j++) {
                     if (line[j] == '9') {
                         highest[12 - k] = line[j] - '0';
                         break;
@@ -85,7 +82,6 @@ unsigned long long calc_line(char *line, int line_length) {
                 if (highest[12 - k] == 9) {
                     break;
                 }
-            }
         }
     }
     printf("Line highest digits: ");
