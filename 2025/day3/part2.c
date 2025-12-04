@@ -57,31 +57,29 @@ unsigned long long calc_line(char *line, int line_length) {
                 }
             }
         } else if (k > 1) {
-                //highest_digit_count[12 - k] = 0;
-                for (int j = highest_digits[(12 - k) - 1][0] + 1; j < line_length - k; j++) {
-                    //printf("Line[j]: %c\n", line[j]);
-                    if (line[j] - '0' > highest[12 - k]) {
-                        highest[12 - k] = line[j] - '0';
-                        highest_digit_count[12 - k] = 0;
-                        highest_digits[12 - k][highest_digit_count[12 - k]] = j;
-                        highest_digit_count[12 - k]++;
-                    } else if (line[j] - '0' == highest[12 - k]) {
-                        highest_digits[12 - k][highest_digit_count[12 - k]] = j;
-                        highest_digit_count[12 - k]++;
-                    }
+            for (int j = highest_digits[(12 - k) - 1][0] + 1; j < line_length - k; j++) {
+                if (line[j] - '0' > highest[12 - k]) {
+                    highest[12 - k] = line[j] - '0';
+                    highest_digit_count[12 - k] = 0;
+                    highest_digits[12 - k][highest_digit_count[12 - k]] = j;
+                    highest_digit_count[12 - k]++;
+                } else if (line[j] - '0' == highest[12 - k]) {
+                    highest_digits[12 - k][highest_digit_count[12 - k]] = j;
+                    highest_digit_count[12 - k]++;
                 }
+            }
         } else {
-                for (int j = highest_digits[(12 - k) - 1][0] + 1; j < line_length - 1; j++) {
-                    if (line[j] == '9') {
-                        highest[12 - k] = line[j] - '0';
-                        break;
-                    } else if (line[j] - '0' > highest[12 - k]) {
-                        highest[12 - k] = line[j] - '0';
-                    }
-                }
-                if (highest[12 - k] == 9) {
+            for (int j = highest_digits[(12 - k) - 1][0] + 1; j < line_length - 1; j++) {
+                if (line[j] == '9') {
+                    highest[12 - k] = line[j] - '0';
                     break;
+                } else if (line[j] - '0' > highest[12 - k]) {
+                    highest[12 - k] = line[j] - '0';
                 }
+            }
+            if (highest[12 - k] == 9) {
+                break;
+            }
         }
     }
     printf("Line highest digits: ");
