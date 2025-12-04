@@ -7,7 +7,7 @@ unsigned long long calc_line(char *line, int line_length);
 
 int main() {
     
-    FILE *file = fopen("example.txt", "r");
+    FILE *file = fopen("input.txt", "r");
 
     char line[102];
     unsigned long long sum = 0;
