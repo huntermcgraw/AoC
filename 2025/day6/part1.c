@@ -4,18 +4,19 @@
 
 int main() {
     
-    FILE *file = fopen("example.txt", "r");
+    FILE *file = fopen("input.txt", "r");
     
-    int length = 512;
+    int length = 4096;
 
     int count = 0;
-    int sum = 0;
+    unsigned long long sum = 0;
     char operator_temp[length];
     char operator[length];
 
     int num_lines = 0;
     while (fgets(operator_temp, sizeof(operator_temp), file) != NULL) {
         num_lines++;
+        printf("Line %d: %s\n", num_lines, operator_temp);
     }
     printf("Total lines read: %d\n", num_lines);
 
@@ -29,30 +30,55 @@ int main() {
     printf("Operator: %s\n", operator);
 
     printf("Operator length: %d\n", actual_length);
-    char line[actual_length + 1];
-    int sums[actual_length + 1];
+    char line[length];
+    unsigned long long sums[actual_length + 1];
+    for (int i = 0; i < actual_length; i++) {
+        if (operator[i] == '*') {
+            sums[i] = 1;
+        } else {
+            sums[i] = 0;
+        }
+    }
 
     fseek(file, 0, SEEK_SET);
+    printf("Num lines: %d\n", num_lines);
+    char *savepointer;
 
     for (int i = 0; i < num_lines - 1; i++) {
         fgets(line, sizeof(line), file);
-        for (int j = 0; j < length; j++) {
-            if (i == 0) {
-                printf("First number in line %d\n", atoi(strtok(line, " ")));
-                sums[j] += atoi(strtok(line, " "));
-            } else {
-                sums[j] += atoi(strtok(NULL, " "));
+
+        char *token = strtok_r(line, " ", &savepointer);
+        
+        for (int j = 0; j < actual_length; j++) {
+            //printf("Token: %s\n", token);
+            if (operator[j] == '+') {
+                //printf("Adding %d to sums[%d]\n", atoi(token), j);
+                sums[j] += strtoull(token, NULL, 10);
+                //printf("sums[%d] is now %d\n", j, sums[j]);
+            } else if (operator[j] == '*') {
+                //printf("Multiplying %d to sums[%d]\n", atoi(token), j);
+                sums[j] *= strtoull(token, NULL, 10);
+                //printf("sums[%d] is now %d\n", j, sums[j]);
+            }
+            token = strtok_r(NULL, " ", &savepointer);
+            if (token == NULL) {
+                break;
             }
             
         }
+        
     }
     for (int k = 0; k < actual_length; k++) {
-        printf("Sum for column %d: %d\n", k, sums[k]);
+        printf("Sum for column %d: %llu\n", k, sums[k]);
     }
 
     fclose(file);
 
-    printf("Grand total: %d\n", sum);
+    for (int k = 0; k < actual_length; k++) {
+        sum += sums[k];
+    }
+
+    printf("Grand total: %llu\n", sum);
 
     return 0;
 }
