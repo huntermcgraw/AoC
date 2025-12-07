@@ -12,6 +12,7 @@ int main() {
     unsigned long long sum = 0;
     char operator_temp[length];
     char operator[length];
+    int problem[1024];
 
     int num_lines = 0;
     while (fgets(operator_temp, sizeof(operator_temp), file) != NULL) {
